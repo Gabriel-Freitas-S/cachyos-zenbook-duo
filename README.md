@@ -15,14 +15,14 @@ Guia de instalação **CachyOS minimal (sem desktop) → Limine → dual-boot Wi
 3. Baixe e rode:
    ```bash
    sudo pacman -Syu git
-   git clone https://github.com/<oct-user>/<repo>.git
-   cd <repo>
+   git clone https://github.com/Gabriel-Freitas-S/cachyos-zenbook-duo.git
+   cd cachyos-zenbook-duo
    chmod +x postinstall.sh
    ./postinstall.sh --screenpad-dkms   # DKMS opcional (backlight do ScreenPad + FN 0x6a)
    ```
    Alternativa sem `git` (sem pipe-to-sh; **leia o conteúdo antes de rodar**):
    ```bash
-   curl -fsSL -o postinstall.sh https://raw.githubusercontent.com/<oct-user>/<repo>/main/postinstall.sh
+   curl -fsSL -o postinstall.sh https://raw.githubusercontent.com/Gabriel-Freitas-S/cachyos-zenbook-duo/main/postinstall.sh
    less postinstall.sh   # revisão manual
    chmod +x postinstall.sh && ./postinstall.sh
    ```
