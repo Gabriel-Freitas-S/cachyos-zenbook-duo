@@ -4,6 +4,33 @@ Guia de instalação **CachyOS minimal (sem desktop) → Limine → dual-boot Wi
 
 > Hardware de referência: ASUS ZenBook Duo 14 UX482EAR · BIOS UX482EAR.308 · i7-1195G7 (Tiger Lake, 4C/8T, AVX-512) · Intel Iris Xe (**sem** dGPU/MUX) · 16 GB LPDDR4x-4267 soldada · NVMe SK hynix BC711 1 TB · Wi-Fi 6E Intel AX210 · Áudio Realtek ALC294 + Intel SST · Tela principal 14" FHD IPS 60Hz touch + ScreenPad Plus (IPS 1920×515 @60Hz) · Webcam USB UVC.
 
+## Como rodar o `postinstall.sh` (pós-instalação do CachyOS)
+
+1. Instale o CachyOS **sem desktop** (guia §1), dê **reboot**, faça login no console TTY do usuário criado.
+2. Conecte o Wi-Fi no TTY:
+   ```bash
+   sudo systemctl start NetworkManager
+   nmtui   # ativar Wi-Fi e conectar
+   ```
+3. Baixe e rode:
+   ```bash
+   sudo pacman -Syu git
+   git clone https://github.com/<oct-user>/<repo>.git
+   cd <repo>
+   chmod +x postinstall.sh
+   ./postinstall.sh --screenpad-dkms   # DKMS opcional (backlight do ScreenPad + FN 0x6a)
+   ```
+   Alternativa sem `git` (sem pipe-to-sh; **leia o conteúdo antes de rodar**):
+   ```bash
+   curl -fsSL -o postinstall.sh https://raw.githubusercontent.com/<oct-user>/<repo>/main/postinstall.sh
+   less postinstall.sh   # revisão manual
+   chmod +x postinstall.sh && ./postinstall.sh
+   ```
+4. Flags: `--screenpad-dkms` (instala DKMS Plippo p/ backlight do ScreenPad) · `--battery-limit 60|80|100` (padrão 80; `0` desativa).
+5. `sudo reboot` → greetd (autologin único) → Niri + DMS. Verificação: `_§6 Checklist_` do guia.
+
+> O script usa o kernel padrão do CachyOS (`linux-cachyos` — BORE já embutido) e não mexe no kernel.
+
 ---
 
 ## 0. Preparação no Windows (ANTES de bootar a ISO)
